@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Menu</title>
+    <style></style>
+</head>
+<body>
+    <h1>Order Menu</h1>
+
+    <div id="menu">
+        <table>
+            <thead>
+                <tr>
+                    <th>ITEM</th>
+                    <th>COSt</th>
+                    <th>QUANTITY</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Burger</td>
+                    <td>$5</td>
+                    <td><input type="number" id="burgerQuantity" min="0" value="0"></td>
+                </tr>
+                <tr>
+                    <td>Pizza</td>
+                    <td>$10 each</td>
+                    <td><input type="number" id="pizzaQuantity" min="0" value="0"></td>
+                </tr>
+                 <tr>
+                    <td>Drink</td>
+                    <td>$2 each</td>
+                    <td><input type="number" id="drinkQuantity" min="0" value="0"></td>
+                </tr>
+            </tbody>
+    </table>
+
+    <button onclick="calculateTotal()">Total</button>
+
+    <div id="totalCost">
+        Total Cost: $<span id="displayTotal">0</span>
+    </div>
+
+    <div id="confirmationButtons" style="display: none;">
+        <button onclick="cancelOrder()">Cancel Order</button>
+        <button onclick="confirmOrder()">Confirm Order</button>
+    </div>
+            
+    
+    <script>
+        function calculateTotal() {
+    // Retrieve the quantity values from the input fields
+    const burgerQty = parseInt(document.getElementById('burgerQuantity').value) || 0;
+    const pizzaQty = parseInt(document.getElementById('pizzaQuantity').value) || 0;
+    const drinkQty = parseInt(document.getElementById('drinkQuantity').value) || 0;
+
+    // Calculate the total cost for each item category
+    const burgerCost = 5 * burgerQty;
+    const pizzaCost = 10 * pizzaQty;
+    const drinkCost = 2 * drinkQty;
+
+    // Calculate the overall total cost
+    const totalCost = burgerCost + pizzaCost + drinkCost;
+
+    // Update the HTML to display the total cost
+    document.getElementById('displayTotal').textContent = totalCost;
+
+    // Show the confirmation buttons after calculating total
+    document.getElementById('confirmationButtons').style.display = 'block';
+}
+function cancelOrder() {
+    // Reset quantity inputs to zero
+    document.getElementById('burgerQuantity').value = 0;
+    document.getElementById('pizzaQuantity').value = 0;
+    document.getElementById('drinkQuantity').value = 0;
+
+    // Hide the confirmation buttons and reset total cost display
+    document.getElementById('confirmationButtons').style.display = 'none';
+    document.getElementById('displayTotal').textContent = '0';
+}
+function confirmOrder() {
+    const totalCost = document.getElementById('displayTotal').textContent;
+
+    // Prompt the user to confirm the order with the total cost
+    const confirmation = confirm(`Confirm order with total cost: $${totalCost}?`);
+
+    // If the user confirms, display an alert message
+    if (confirmation) {
+        alert('Order confirmed!');
+    }
+}
+
+    </script>
+</body>
+</html>
